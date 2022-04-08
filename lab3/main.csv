@@ -1,0 +1,1634 @@
+name,year,title,pdf_name,abstract,paper_text
+Hisashi Suzuki,1987,Self-Organization of Associative Database and Its Applications,1-self-organization-of-associative-database-and-its-applications.pdf,Abstract Missing,"767
+
+SELF-ORGANIZATION OF ASSOCIATIVE DATABASE
+AND ITS APPLICATIONS
+Hisashi Suzuki and Suguru Arimoto
+Osaka University, Toyonaka, Osaka 560, Japan
+ABSTRACT
+An efficient method of self-organizing associative databases is proposed together with
+applications to robot eyesight systems. The proposed databases can associate any input
+with some output. In the first half part of discussion, an algorithm of self-organization is
+proposed. From an aspect of hardware, it produces a new style of neural network. In the
+latter half part, an applicability to handwritten letter recognition and that to an autonomous
+mobile robot system are demonstrated.
+
+INTRODUCTION
+Let a mapping f : X -+ Y be given. Here, X is a finite or infinite set, and Y is another
+finite or infinite set. A learning machine observes any set of pairs (x, y) sampled randomly
+from X x Y. (X x Y means the Cartesian product of X and Y.) And, it computes some
+estimate j : X -+ Y of f to make small, the estimation error in some measure.
+Usually we say that: the faster the decrease of estimation error with increase of the number of samples, the better the learning machine. However, such expression on performance
+is incomplete. Since, it lacks consideration on the candidates of J of j assumed preliminarily. Then, how should we find out good learning machines? To clarify this conception,
+let us discuss for a while on some types of learning machines. And, let us advance the
+understanding of the self-organization of associative database .
+. Parameter Type
+An ordinary type of learning machine assumes an equation relating x's and y's with
+parameters being indefinite, namely, a structure of f. It is equivalent to define implicitly a
+set F of candidates of
+(F is some subset of mappings from X to Y.) And, it computes
+values of the parameters based on the observed samples. We call such type a parameter
+type.
+For a learning machine defined well, if F 3 f, j approaches f as the number of samples
+increases. In the alternative case, however, some estimation error remains eternally. Thus,
+a problem of designing a learning machine returns to find out a proper structure of f in this
+sense.
+On the other hand, the assumed structure of f is demanded to be as compact as possible
+to achieve a fast learning. In other words, the number of parameters should be small. Since,
+if the parameters are few, some j can be uniquely determined even though the observed
+samples are few. However, this demand of being proper contradicts to that of being compact.
+Consequently, in the parameter type, the better the compactness of the assumed structure
+that is proper, the better the learning machine. This is the most elementary conception
+when we design learning machines .
+
+1.
+
+. Universality and Ordinary Neural Networks
+Now suppose that a sufficient knowledge on f is given though J itself is unknown. In
+this case, it is comparatively easy to find out proper and compact structures of J. In the
+alternative case, however, it is sometimes difficult. A possible solution is to give up the
+compactness and assume an almighty structure that can cover various 1's. A combination
+of some orthogonal bases of the infinite dimension is such a structure. Neural networks 1 ,2
+are its approximations obtained by truncating finitely the dimension for implementation.
+
+? American Institute of Physics 1988
+
+768
+A main topic in designing neural networks is to establish such desirable structures of 1.
+This work includes developing practical procedures that compute values of coefficients from
+the observed samples. Such discussions are :flourishing since 1980 while many efficient methods have been proposed. Recently, even hardware units computing coefficients in parallel
+for speed-up are sold, e.g., ANZA, Mark III, Odyssey and E-1.
+Nevertheless, in neural networks, there always exists a danger of some error remaining
+eternally in estimating /. Precisely speaking, suppose that a combination of the bases of a
+finite number can define a structure of 1 essentially. In other words, suppose that F 3 /, or
+1 is located near F. In such case, the estimation error is none or negligible. However, if 1
+is distant from F, the estimation error never becomes negligible. Indeed, many researches
+report that the following situation appears when 1 is too complex. Once the estimation
+error converges to some value (> 0) as the number of samples increases, it decreases hardly
+even though the dimension is heighten. This property sometimes is a considerable defect of
+neural networks .
+. Recursi ve Type
+The recursive type is founded on another methodology of learning that should be as
+follows. At the initial stage of no sample, the set Fa (instead of notation F) of candidates
+of I equals to the set of all mappings from X to Y. After observing the first sample
+(Xl, Yl) E X x Y, Fa is reduced to Fi so that I(xt) = Yl for any I E F. After observing
+the second sample (X2' Y2) E X x Y, Fl is further reduced to F2 so that i(xt) = Yl and
+I(X2) = Y2 for any I E F. Thus, the candidate set F becomes gradually small as observation
+of samples proceeds. The after observing i-samples, which we write
+is one of the most
+likelihood estimation of 1 selected in fi;. Hence, contrarily to the parameter type, the
+recursive type guarantees surely that j approaches to 1 as the number of samples increases.
+The recursive type, if observes a sample (x"" yd, rewrites values 1,-l(X),S to I,(x)'s for
+some x's correlated to the sample. Hence, this type has an architecture composed of a rule
+for rewriting and a free memory space. Such architecture forms naturally a kind of database
+that builds up management systems of data in a self-organizing way. However, this database
+differs from ordinary ones in the following sense. It does not only record the samples already
+observed, but computes some estimation of l(x) for any x E X. We call such database an
+associative database.
+The first subject in constructing associative databases is how we establish the rule for
+rewri ting. For this purpose, we adap t a measure called the dissimilari ty. Here, a dissimilari ty
+means a mapping d : X x X -+ {reals > O} such that for any (x, x) E X x X, d(x, x) > 0
+whenever l(x) t /(x). However, it is not necessarily defined with a single formula. It is
+definable with, for example, a collection of rules written in forms of ""if? .. then?? .. ""
+The dissimilarity d defines a structure of 1 locally in X x Y. Hence, even though
+the knowledge on f is imperfect, we can re:flect it on d in some heuristic way. Hence,
+contrarily to neural networks, it is possible to accelerate the speed of learning by establishing
+d well. Especially, we can easily find out simple d's for those l's which process analogically
+information like a human. (See the applications in this paper.) And, for such /'s, the
+recursive type shows strongly its effectiveness.
+We denote a sequence of observed samples by (Xl, Yd, (X2' Y2),???. One of the simplest
+constructions of associative databases after observing i-samples (i = 1,2,.,,) is as follows.
+
+i
+
+i""
+
+I,
+
+Algorithm 1. At the initial stage, let So be the empty set. For every i =
+1,2"" .. , let i,-l(x) for any x E X equal some y* such that (x*,y*) E S,-l and
+
+d(x, x*) =
+
+min
+(%,y)ES.-t
+
+d(x, x) .
+
+Furthermore, add (x"" y,) to S;-l to produce Sa, i.e., S, = S,_l U {(x""
+
+(1)
+
+y,n.
+
+769
+
+Another version improved to economize the memory is as follows.
+
+Algorithm 2, At the initial stage, let So be composed of an arbitrary element
+in X x Y. For every i = 1,2"""", let ii-lex) for any x E X equal some y. such
+that (x?, y.) E Si-l and
+d(x, x?) =
+
+min
+
+d(x, x) .
+
+(i,i)ES.-l
+
+Furthermore, if ii-l(Xi) # Yi then let Si = Si-l, or add (Xi, Yi) to Si-l to
+produce Si, i.e., Si = Si-l U {(Xi, Yi)}'
+In either construction, ii approaches to f as i increases. However, the computation time
+grows proportionally to the size of Si. The second subject in constructing associative
+databases is what addressing rule we should employ to economize the computation time. In
+the subsequent chapters, a construction of associative database for this purpose is proposed.
+It manages data in a form of binary tree.
+
+SELF-ORGANIZATION OF ASSOCIATIVE DATABASE
+Given a sample sequence (Xl, Yl), (X2' Y2), .. "" the algorithm for constructing associative
+database is as follows.
+
+Algorithm 3,'
+
+Step I(Initialization): Let (x[root], y[root]) = (Xl, Yd. Here, x[.] and y[.] are
+variables assigned for respective nodes to memorize data.. Furthermore, let t = 1.
+Step 2: Increase t by 1, and put x, in. After reset a pointer n to the root, repeat
+the following until n arrives at some terminal node, i.e., leaf.
+Notations nand
+d(xt, x[n)), let n
+
+n mean the descendant nodes of n.
+=n. Otherwise, let n =n.
+
+If d(x"" r[n)) ~
+
+Step 3: Display yIn] as the related information. Next, put y, in. If yIn] = y"" back
+to step 2. Otherwise, first establish new descendant nodes n and n. Secondly,
+let
+
+(x[n], yIn))
+(x[n], yIn))
+
+(x[n], yIn)),
+(Xt, y,).
+
+(2)
+(3)
+
+Finally, back to step 2. Here, the loop of step 2-3 can be stopped at any time
+and also can be continued.
+Now, suppose that gate elements, namely, artificial ""synapses"" that play the role of branching by d are prepared. Then, we obtain a new style of neural network with gate elements
+being randomly connected by this algorithm.
+
+LETTER RECOGNITION
+Recen tly, the vertical slitting method for recognizing typographic English letters3 , the
+elastic matching method for recognizing hand written discrete English letters4 , the global
+training and fuzzy logic search method for recognizing Chinese characters written in square
+styleS, etc. are published. The self-organization of associative database realizes the recognition of handwritten continuous English letters.
+
+770
+
+9 /wn""
+
+NOV
+
+~ ~ ~ -xk :La.t
+
+~~ ~ ~~~
+
+dw1lo'
+
+~~~~~of~~
+
+~~~ 4,-?~~4Fig. 1. Source document.
+2~~---------------'
+
+lOO~---------------'
+
+H
+
+o
+
+o
+Fig. 2. Windowing.
+
+1000
+
+2000
+
+3000
+
+4000
+
+Number of samples
+
+o
+
+1000
+
+2000
+
+3000
+
+4000
+
+NUAlber of sampl es
+
+Fig. 3. An experiment result.
+
+An image scanner takes a document image (Fig. 1). The letter recognizer uses a parallelogram window that at least can cover the maximal letter (Fig. 2), and processes the
+sequence of letters while shifting the window. That is, the recognizer scans a word in a
+slant direction. And, it places the window so that its left vicinity may be on the first black
+point detected. Then, the window catches a letter and some part of the succeeding letter.
+If recognition of the head letter is performed, its end position, namely, the boundary line
+between two letters becomes known. Hence, by starting the scanning from this boundary
+and repeating the above operations, the recognizer accomplishes recursively the task. Thus
+the major problem comes to identifying the head letter in the window.
+Considering it, we define the following.
+? Regard window images as x's, and define X accordingly.
+? For a (x, x) E X x X, denote by B a black point in the left area from the boundary on
+window image X. Project each B onto window image x. Then, measure the Euclidean
+distance 6 between fj and a black point B on x being the closest to B. Let d(x, x) be
+the summation of 6's for all black points B's on x divided by the number of B's.
+? Regard couples of the ""reading"" and the position of boundary as y's, and define Y
+accordingly.
+An operator teaches the recognizer in interaction the relation between window image and
+reading& boundary with algorithm 3. Precisely, if the recalled reading is incorrect, the
+operator teaches a correct reading via the console. Moreover, if the boundary position is
+incorrect, he teaches a correct position via the mouse.
+Fig. 1 shows partially a document image used in this experiment. Fig. 3 shows the
+change of the number of nodes and that of the recognition rate defined as the relative
+frequency of correct answers in the past 1000 trials. Speciiications of the window are height
+= 20dot, width = 10dot, and slant angular = 68deg. In this example, the levels of tree
+were distributed in 6-19 at time 4000 and the recognition rate converged to about 74%.
+Experimentally, the recognition rate converges to about 60-85% in most cases, and to 95% at
+a rare case. However, it does not attain 100% since, e.g., ""c"" and ""e"" are not distinguishable
+because of excessive lluctuation in writing. If the consistency of the x, y-relation is not
+assured like this, the number of nodes increases endlessly (d. Fig. 3). Hence, it is clever to
+stop the learning when the recognition rate attains some upper limit. To improve further
+the recognition rate, we must consider the spelling of words. It is one of future subjects.
+
+771
+
+OBSTACLE AVOIDING MOVEMENT
+Various systems of camera type autonomous mobile robot are reported flourishingly6-1O.
+The system made up by the authors (Fig. 4) also belongs to this category. Now, in mathematical methodologies, we solve usually the problem of obstacle avoiding movement as
+a cost minimization problem under some cost criterion established artificially. Contrarily,
+the self-organization of associative database reproduces faithfully the cost criterion of an
+operator. Therefore, motion of the robot after learning becomes very natural.
+Now, the length, width and height of the robot are all about O.7m, and the weight is
+about 30kg. The visual angle of camera is about 55deg. The robot has the following three
+factors of motion. It turns less than ?30deg, advances less than 1m, and controls speed less
+than 3km/h. The experiment was done on the passageway of wid th 2.5m inside a building
+which the authors' laboratories exist in (Fig. 5). Because of an experimental intention, we
+arrange boxes, smoking stands, gas cylinders, stools, handcarts, etc. on the passage way at
+random. We let the robot take an image through the camera, recall a similar image, and
+trace the route preliminarily recorded on it. For this purpose, we define the following.
+? Let the camera face 28deg downward to take an image, and process it through a low
+pass filter. Scanning vertically the filtered image from the bottom to the top, search
+the first point C where the luminance changes excessively. Then, su bstitu te all points
+from the bottom to C for white, and all points from C to the top for black (Fig. 6).
+(If no obstacle exists just in front of the robot, the white area shows the ''free'' area
+where the robot can move around.) Regard binary 32 x 32dot images processed thus
+as x's, and define X accordingly.
+? For every (x, x) E X x X, let d(x, x) be the number of black points on the exclusive-or
+image between x and X.
+? Regard as y's the images obtained by drawing routes on images x's, and define Y
+accordingly.
+The robot superimposes, on the current camera image x, the route recalled for x, and
+inquires the operator instructions. The operator judges subjectively whether the suggested
+route is appropriate or not. In the negative answer, he draws a desirable route on x with the
+mouse to teach a new y to the robot. This opera.tion defines implicitly a sample sequence
+of (x, y) reflecting the cost criterion of the operator.
+
+.::l"" !
+-
+
+IibUBe
+
+_. -
+
+22
+
+11
+
+Roan
+
+12
+
+{-
+
+13
+
+Stationary uni t
+
+Fig. 4. Configuration of
+autonomous mobile robot system.
+
+~
+
+I
+
+,
+
+23
+
+24
+
+North
+14
+
+rmbi Ie unit (robot)
+
+-
+
+Roan
+
+y
+
+t
+
+Fig. 5. Experimental
+environment.
+
+772
+
+Wall
+
+Camera image
+
+Preprocessing
+
+A
+
+::: !fa
+
+?
+
+Preprocessing
+
+0
+
+O
+
+Course
+suggest ion
+
+??
+
+..
+
+Search
+
+A
+
+Fig. 6. Processing for
+obstacle avoiding movement.
+
+x
+
+Fig. 1. Processing for
+position identification.
+We define the satisfaction rate by the relative frequency of acceptable suggestions of
+route in the past 100 trials. In a typical experiment, the change of satisfaction rate showed
+a similar tendency to Fig. 3, and it attains about 95% around time 800. Here, notice that
+the rest 5% does not mean directly the percentage of collision. (In practice, we prevent the
+collision by adopting some supplementary measure.) At time 800, the number of nodes was
+145, and the levels of tree were distributed in 6-17.
+The proposed method reflects delicately various characters of operator. For example, a
+robot trained by an operator 0 moves slowly with enough space against obstacles while one
+trained by another operator 0' brushes quickly against obstacles. This fact gives us a hint
+on a method of printing ""characters"" into machines.
+POSITION IDENTIFICATION
+The robot can identify its position by recalling a similar landscape with the position data
+to a camera image. For this purpose, in principle, it suffices to regard camera images and
+position data as x's and y's, respectively. However, the memory capacity is finite in actual
+compu ters. Hence, we cannot but compress the camera images at a slight loss of information.
+Such compression is admittable as long as the precision of position identification is in an
+acceptable area. Thus, the major problem comes to find out some suitable compression
+method.
+In the experimental environment (Fig. 5), juts are on the passageway at intervals of
+3.6m, and each section between adjacent juts has at most one door. The robot identifies
+roughly from a surrounding landscape which section itself places in. And, it uses temporarily
+a triangular surveying technique if an exact measure is necessary. To realize the former task,
+we define the following .
+? Turn the camera to take a panorama image of 360deg. Scanning horizontally the
+center line, substitute the points where the luminance excessively changes for black
+and the other points for white (Fig. 1). Regard binary 360dot line images processed
+thus as x's, and define X accordingly.
+? For every (x, x) E X x X, project each black point A on x onto x. And, measure the
+Euclidean distance 6 between A and a black point A on x being the closest to A. Let
+the summation of 6 be S. Similarly, calculate S by exchanging the roles of x and X.
+Denoting the numbers of A's and A's respectively by nand n, define
+
+773
+
+d(x, x) =
+
+~(~
++ ~).
+2 n
+n
+
+(4)
+
+? Regard positive integers labeled on sections as y's (cf. Fig. 5), and define Y accordingly.
+In the learning mode, the robot checks exactly its position with a counter that is reset periodically by the operator. The robot runs arbitrarily on the passageways within 18m area
+and learns the relation between landscapes and position data. (Position identification beyond 18m area is achieved by crossing plural databases one another.) This task is automatic
+excepting the periodic reset of counter, namely, it is a kind of learning without teacher.
+We define the identification rate by the relative frequency of correct recalls of position
+data in the past 100 trials. In a typical example, it converged to about 83% around time
+400. At time 400, the number of levels was 202, and the levels oftree were distributed in 522. Since the identification failures of 17% can be rejected by considering the trajectory, no
+pro blem arises in practical use. In order to improve the identification rate, the compression
+ratio of camera images must be loosened. Such possibility depends on improvement of the
+hardware in the future.
+Fig. 8 shows an example of actual motion of the robot based on the database for obstacle
+avoiding movement and that for position identification. This example corresponds to a case
+of moving from 14 to 23 in Fig. 5. Here, the time interval per frame is about 40sec.
+
+,~. .~ (
+;~""i..
+~
+
+""
+
+""
+
+.
+
+..I
+
+I
+
+?
+?
+
+""
+
+I'
+.
+'.1
+t
+
+;
+
+i
+
+-:
+, . . , 'II
+
+Fig. 8. Actual motion of the robot.
+
+774
+
+CONCLUSION
+A method of self-organizing associative databases was proposed with the application to
+robot eyesight systems. The machine decomposes a global structure unknown into a set of
+local structures known and learns universally any input-output response. This framework
+of problem implies a wide application area other than the examples shown in this paper.
+A defect of the algorithm 3 of self-organization is that the tree is balanced well only
+for a subclass of structures of f. A subject imposed us is to widen the class. A probable
+solution is to abolish the addressing rule depending directly on values of d and, instead, to
+establish another rule depending on the distribution function of values of d. It is now under
+investigation.
+
+REFERENCES
+1. Hopfield, J. J. and D. W. Tank, ""Computing with Neural Circuit: A Model/'
+
+Science 233 (1986), pp. 625-633.
+2. Rumelhart, D. E. et al., ""Learning Representations by Back-Propagating Errors,"" Nature 323 (1986), pp. 533-536.
+
+3. Hull, J. J., ""Hypothesis Generation in a Computational Model for Visual Word
+Recognition,"" IEEE Expert, Fall (1986), pp. 63-70.
+4. Kurtzberg, J. M., ""Feature Analysis for Symbol Recognition by Elastic Matching,"" IBM J. Res. Develop. 31-1 (1987), pp. 91-95.
+
+5. Wang, Q. R. and C. Y. Suen, ""Large Tree Classifier with Heuristic Search and
+Global Training,"" IEEE Trans. Pattern. Anal. & Mach. Intell. PAMI 9-1
+(1987) pp. 91-102.
+6. Brooks, R. A. et al, ""Self Calibration of Motion and Stereo Vision for Mobile
+Robots,"" 4th Int. Symp. of Robotics Research (1987), pp. 267-276.
+7. Goto, Y. and A. Stentz, ""The CMU System for Mobile Robot Navigation,"" 1987
+IEEE Int. Conf. on Robotics & Automation (1987), pp. 99-105.
+8. Madarasz, R. et al., ""The Design of an Autonomous Vehicle for the Disabled,""
+IEEE Jour. of Robotics & Automation RA 2-3 (1986), pp. 117-125.
+9. Triendl, E. and D. J. Kriegman, ""Stereo Vision and Navigation within Buildings,"" 1987 IEEE Int. Conf. on Robotics & Automation (1987), pp. 1725-1730.
+10. Turk, M. A. et al., ""Video Road-Following for the Autonomous Land Vehicle,""
+1987 IEEE Int. Conf. on Robotics & Automation (1987), pp. 273-279.
+
+"
+Suguru Arimoto,1987,The Capacity of the Kanerva Associative Memory is Exponential,2-the-capacity-of-the-kanerva-associative-memory-is-exponential.pdf,Abstract Missing,"184
+
+THE CAPACITY OF THE KANERVA ASSOCIATIVE MEMORY IS EXPONENTIAL
+P. A. Choul
+Stanford University. Stanford. CA 94305
+ABSTRACT
+The capacity of an associative memory is defined as the maximum
+number of vords that can be stored and retrieved reliably by an address
+vithin a given sphere of attraction. It is shown by sphere packing
+arguments that as the address length increases. the capacity of any
+associati ve memory is limited to an exponential grovth rate of 1 - h2 ( 0).
+vhere h2(0) is the binary entropy function in bits. and 0 is the radius
+of the sphere of attraction. This exponential grovth in capacity can
+actually be achieved by the Kanerva associative memory. if its
+parameters are optimally set . Formulas for these op.timal values are
+provided. The exponential grovth in capacity for the Kanerva
+associative memory contrasts sharply vith the sub-linear grovth in
+capacity for the Hopfield associative memory.
+ASSOCIATIVE MEMORY AND ITS CAPACITY
+Our model of an associative memory is the folloving. Let ()(,Y) be
+an (address. datum) pair. vhere )( is a vector of n ?ls and Y is a
+vector of m ?ls. and let ()(l),y(I)), ... ,()(M) , y(M)). be M (address,
+datum) pairs stored in an associative memory. If the associative memory
+is presented at the input vith an address )( that is close to some
+stored address )(W. then it should produce at the output a vord Y that
+is close to the corresponding contents y(j). To be specific, let us say
+that an associative memory can correct fraction 0 errors if an )( vi thin
+Hamming distance no of )((j) retrieves Y equal to y(j). The Hamming
+sphere around each )(W vill be called the sphere of attraction, and 0
+viII be called the radius of attraction.
+One notion of the capacity of this associative memory is the
+maximum number of vords that it can store vhile correcting fraction 0
+errors . Unfortunately. this notion of capacity is ill-defined. because
+it depends on exactly vhich (address. datum) pairs have been stored.
+Clearly. no associative memory can correct fraction 0 errors for every
+sequence of stored (address, datum) pairs. Consider. for example, a
+sequence in vhich several different vords are vritten to the same
+address . No memory can reliably retrieve the contents of the
+overvritten vords. At the other extreme. any associative memory ' can
+store an unlimited number of vords and retrieve them all reliably. if
+their contents are identical.
+A useful definition of capacity must lie somevhere betveen these
+tvo extremes. In this paper. ve are interested in the largest M such
+that for most sequences of addresses XU), .. . , X(M) and most sequences of
+data y(l), ... , y(M). the memory can correct fraction 0 errors. We define
+IThis vork vas supported by the National Science Foundation under NSF
+grant IST-8509860 and by an IBM Doctoral Fellovship.
+
+? American Institute of Physics 1988
+
+185
+
+most sequences' in a probabilistic sense, as some set of sequences yi th
+total probability greater than say, .99. When all sequences are
+equiprobab1e, this reduces to the deterministic version: 991. of all
+sequences.
+In practice it is too difficult to compute the capacity of a given
+associative memory yith inputs of length n and outputs of length Tn.
+Fortunately, though, it is easier to compute the asymptotic rate at
+which A1 increases, as n and Tn increase, for a given family of
+associative memories. This is the approach taken by McEliece et al. [1]
+toyards the capacity of the Hopfield associative memory. We take the
+same approach tovards the capacity of the Kanerva associative memory,
+and tovards the capacities of associative memories in general . In the
+next section ve provide an upper bound on the rate of grovth of the
+capacity of any associative memory fitting our general model. It is
+shown by sphere packing arguments that capacity is limited to an
+exponential rate of grovth of 1- h2(t5), vhere h2(t5) is the binary entropy
+function in bits, and 8 is the radius of attraction. In a later section
+it vill turn out that this exponential grovth in capacity can actually
+be achieved by the Kanerva associative memory, if its parameters are
+optimally set. This exponential grovth in capacity for the Kanerva
+associative memory contrasts sharply yith the sub-linear grovth in
+capacity for the Hopfield associative memory [1].
+I
+
+A UNIVERSAL UPPER BOUND ON CAPACITY
+Recall that our definition of the capacity of an associative memory
+is the largest A1 such that for most sequences of addresses
+X(1), ... ,X(M) and most sequences of data y(l), ... , y(M), the memory can
+correct fraction 8 errors. Clearly, an upper bound to this capacity is
+the largest Af for vhich there exists some sequence of addresses
+X(1), . . . , X(M) such that for most sequences of data y(l), ... , y(M), the
+memory can correct fraction 8 errors. We nov derive an expression for
+this upper bound.
+Let 8 be the radius of attraction and let DH(X(i) , d) be the sphere
+of attraction, i.e., the set of all Xs at most Hamming distance d= Ln8J
+from .y(j). Since by assumption the memory corrects fraction 8 errors,
+every address X E DH(XU),d) retrieves the vord yW. The size of
+DH(XU),d) is easily shown to be independent of xU) and equal to
+vn.d = 2:%=0
+vhere
+is the binomial coefficient n!jk!(n - k)!. Thus
+n
+out of a total of 2 n-bit addresses, at least vn.d addresses retrieve
+y(l), at least Vn.d addresses retrieve y(2), at least Vn.d addresses
+retrieve y(~, and so forth. It fol10vs that the total number of
+distinct yU)s can be at most 2 n jv n .d ' Nov, from Stirling's formula it
+can be shovn that if d:S; nj2, then vn.d = 2nh2 (d/n)+O(logn), vhere
+h 2 ( 8) = -81og 2 8 - (1 - 8) log2( 1 - 8) is the binary entropy function in bits,
+and O(logn) is some function yhose magnitude grovs more slovly than a
+constant times log n. Thus the total number of distinct y(j)s can be at
+most 2 n (1-h2(S?+O(logn)
+Since any set containing I most sequences' of Af
+Tn-bit vords vill contain a large number of distinct vords (if Tn is
+
+(1:),
+
+(I:)
+
+186
+
+Figure 1: Neural net representation of the Kanerva associative memory. Signals propagate from the bottom (input) to the top (output). Each arc multiplies the signal by its
+weight; each node adds the incoming signals and then thresholds.
+sufficiently large --- see [2] for details), it follovs that
+M :5 2 n (l-h 2 (o?+O(logn).
+
+(1)
+
+In general a function fen) is said to be O(g(n)) if f(n)fg(n) is
+bounded, i.e. , if there exists a constant a such that If(n)1 :5 a\g(n)1 for
+all n. Thus (1) says that there exists a constant a such that
+M :5 2 n(l-h 2 (S?+alogn. It should be emphasized that since a is unknow,
+this bound has no meaning for fixed n. Hovever, it indicates that
+asymptotically in n, the maximum exponential rate of grovth of M is
+1 - h2 ( 6).
+Intui ti vely, only a sequence of addresses X(l), ... , X(M) that
+optimally pack the address space {-l,+l}n can hope to achieve this
+upper bound. Remarkably, most such sequences are optimal in this sense,
+vhen n is large. The Kanerva associative memory can take advantage of
+this fact.
+
+THE KANERVA ASSOCIATIVE MEMORY
+The Kanerva associative memory [3,4] can be regarded as a tvo-layer
+neural netvork, as shovn in Figure 1, vhere the first layer is a
+preprocessor and the second layer is the usual Hopfield style array.
+The preprocessor essentially encodes each n-bit input address into a
+very large k-bit internal representation, k ~ n, vhose size will be
+permitted to grov exponentially in n. It does not seem surprising,
+then, that the capacity of the Kanerva associative memory can grov
+exponentially in n, for it is knovn that the capacity of the Hopfield
+array grovs almost linearly in k, assuming the coordinates of the
+k-vector are dravn at random by independent flips of a fair coin [1].
+
+187
+
+Figure 2: Matrix representation of the Kanerva associative memory. Signals propagate
+from the right (input) to the left (output). Dimensions are shown in the box corners.
+Circles stand for functional composition; dots stand for matrix multiplication.
+In this situation, hovever, such an assumption is ridiculous: Since the
+k-bit internal representation is a function of the n-bit input address,
+it can contain at most n bits of information, whereas independent flips
+of a fair coin contain k bits of information. Kanerva's primary
+contribution is therefore the specification of the preprocessor, that
+is, the specification of how to map each n-bit input address into a very
+large k-bit internal representation.
+The operation of the preprocessor is easily described. Consider
+the matrix representation shovn in Figure 2. The matrix Z is randomly
+populated vith ?ls. This randomness assumption is required to ease the
+analysis. The function fr is 1 in the ith coordinate if the ith row of
+Z is within Hamming distance r of X, and is Oothervise. This is
+accomplished by thresholding the ith input against n-2r. The
+parameters rand k are two essential parameters in the Kanerva
+associative memory. If rand k are set correctly, then the number of 1s
+in the representation fr(ZX) vill be very small in comparison to the
+number of Os. Hence fr(Z~Y) can be considered to be a sparse internal
+representation of X.
+The second stage of the memory operates in the usual way, except on
+the internal representation of X. That is, Y = g(W fr(ZX)), vhere
+M
+
+l-V = LyU)[Jr(ZXU))]t,
+
+(2)
+
+i=l
+
+and 9 is the threshold function whose ith coordinate is +1 if the ith
+input is greater than 0 and -1 is the ith input is less than O. The ith
+column of l-V can be regarded as a memory location vhose address is the
+ith row of Z. Every X vi thin Hamming distance r of the ith rov of Z
+accesses this location. Hence r is known as the access radius, and k is
+the number of memory locations.
+The approach taken in this paper is to fix the linear rate p at
+which r grovs vith n, and to fix the exponential rate ~ at which k grovs
+with n. It turns out that the capacity then grovs at a fixed
+exponential rate Cp,~(t5), depending on p, ~, and 15. These exponential
+rates are sufficient to overcome the standard loose but simple
+polynomial bounds on the errors due to combinatorial approximations.
+
+188
+
+THE CAPACITY OF THE KANERVA ASSOCIATIVE MEMORY
+Fix 0 $ K $1. 0 $ p$ 1/2. and 0 $ 0 $ min{2p,1/2}. Let n be the
+input address length, and let Tn be the output word length. It is
+assumed that Tn is at most polynomial in n, i.e., Tn = exp{O(logn)}. Let
+r = IJmJ be the access radius, let k = 2 L""nJ be the number of memory
+locations, and let d= LonJ be the radius of attraction. Let Afn be the
+number of stored words. The components of the n-vectors X(l), .. . , X(Mn) ,
+the m-vectors y(l), ... , y(,Yn), and the k X n matrix Z are assumed to be
+lID equiprobable ?1 random variables. Finally, given an n-vector X,
+let Y = g(W fr(ZX)) where W = Ef;nl yU)[Jr(ZXW)jf.
+Define the quantity
+
+Cp ,,(0) = { 26 + 2(1- 0)h(P;~~2)
+'Cp,ICo(p)(o)
+where
+KO(p)
+
+2h(p)
+
+2; - 2(1- ;)h(P~242)
+
+= 2h(p) -
+
+and
+
+~-
+
+; =
+
+Theorem:
+
++ K, -
+
+If
+Af
+
+J
+
+196 -
+
+if K, $ K,o(p)
+if K> K,O(p) ,
+
++ 1- he;)
+
+(3)
+
+(4)
+
+2p(1 - p).
+
+< 2nCp... (5)+O(logn)
+
+n_
+
+then for all f>O, all sufficiently large n, all jE{l, ... ,Afn }. and all
+X E DH(X(j) , d),
+
+P{y
+
+-::J y(j)}
+
+< f.
+
+See [2].
+Interpretation: If the exponential growth rate of the number of
+stored words Afn is asymptotically less than C p ,,, ( 0), then for every
+sufficiently large address length n. there is some realization of the
+nx 2n "" preprocessor matrix Z such that the associative memory can
+correct fraction 0 errors for most sequences of Afn (address, datum)
+pairs. Thus Cp,IC( 0) is a lover bound on the exponential growth rate of
+the capacity of the Kanerva associative memory with access radius np and
+number of memory locations 2nIC ?
+Figure 3 shows Cp,IC(O) as a function of the radius of attraction 0,
+for K,= K,o(p) and p=O.l, 0.2, 0.3, 0.4 and 0.45. For? any fixed access
+radius p, Cp,ICO(p) (0) decreases as 0 increases. This reflects the fact
+that fewer (address, datum) pairs can be stored if a greater fraction of
+errors must be corrected. As p increases, Cp,,,o(p)(o) begins at a lower
+point but falls off less steeply. In a moment we shall see that p can
+be adjusted to provide the optimal performance for a given O.
+Not ShOVIl in Figure 3 is the behavior of Cp ,,, ( 0) as a function of K,.
+However, the behavior is simple. For K, > K,o(p), Cp,,,(o) remains
+unchanged, while for K$ K,o(p), Cp,,,(o) is simply shifted doVIl by the
+difference KO(p)-K,. This establishes the conditions under which the
+Kanerva associative memory is robust against random component failures.
+Although increasing the number of memory locations beyond 2rl11:o(p) does
+not increase the capacity, it does increase robustness. Random
+Proof:
+
+189
+
+0.8
+
+0.6
+
+'!I.2 ...... - - -
+
+""
+
+"" ?1
+
+1Il.2
+
+IIl.S
+
+1Il.3
+
+Figure 3: Graphs of Cp,lCo(p)(o) as defined by (3). The upper envelope is 1- h2(0).
+component failures will not affect the capacity until so many components
+have failed that the number of surviving memory locations is less than
+2nlCo (p) .
+
+Perhaps the most important curve exhibited in Figure 3 is the
+sphere packing upper bound 1 - h2 ( 0). which is achieved for a particular
+
+J
+
+p by b = ~ - 196 - 2p(1 - p). Equivalently. the upper bound is achieved
+for a particular 0 by P equal to
+
+poCo) =
+
+t - Jt - iO(l -
+
+~o).
+
+(5)
+
+Thus (4) and (5) specify the optimal values of the parameters K and P.
+respectively. These functions are shown in Figure 4. With these
+optimal values. (3) simplifies to
+
+the sphere packing bound.
+It can also be seen that for 0 = 0 in (3). the exponential growth
+rate of the capacity is asymptotically equal to K. which is the
+exponential growth rate of the number of memory locations. k n ? That is.
+Mn = 2n1C +O(logn) = k n . 20 (logn). Kanerva [3] and Keeler [5] have argued
+that the capacity at 8 =0 is proportional to the number of memory
+locations, i.e .? Mn = k n . (3. for some constant (3. Thus our results are
+consistent with those of Kanerva and Keeler. provided the 'polynomial'
+20 (logn) can be proved to be a constant. However. the usual statement of
+their result. M = k?(3. that the capacity is simply proportional to the
+number of memory locations. is false. since in light of the universal
+
+190
+
+liLS
+
+o
+riJ.S
+
+Figure 4: Graphs of KO(p) and co(p), the inverse of Po(<5), as defined by (4) and (5).
+
+upper bound, it is impossible for the capacity to grow without bound,
+with no dependence on the dimension n. In our formulation, this
+difficulty does not arise because we have explicitly related the number
+of memory locations to the input dimension: kn =2n~. In fact, our
+formulation provides explicit, coherent relationships between all of the
+following variables: the capacity .~, the number of memory locations k,
+the input and output dimensions n and Tn, the radius of attraction C,
+and the access radius p. We are therefore able to generalize the
+results of [3,5] to the case C>0, and provide explicit expressions for
+the asymptotically optimal values of p and K as well.
+CONCLUSION
+We described a fairly general model of associative memory and
+selected a useful definition of its capacity. A universal upper bound
+on the growth of the capacity of such an associative memory was shown by
+a sphere packing argument to be exponential with rate 1 - h 2 ( c), where
+h2(C) is the binary entropy function and 8 is the radius of attraction.
+We reviewed the operation of the Kanerva associative memory, and stated
+a lower bound on the exponential growth rate of its capacity. This
+lower bound meets the universal upper bound for optimal values of the
+memory parameters p and K. We provided explicit formulas for these
+optimal values. Previous results for <5 =0 stating that the capacity of
+the Kanerva associative memory is proportional to the number of memory
+locations cannot be strictly true. Our formulation corrects the problem
+and generalizes those results to the case C > o.
+
+191
+
+REFERENCES
+1. R.J. McEliece, E.C. Posner, E.R. Rodemich, and S.S. Venkatesh,
+""The capacity of the Hopfield associative memory,"" IEEE
+Transactions on Information Theory, submi tt ed .
+2. P.A. Chou, ""The capacity of the Kanerva associative memory,""
+IEEE Transactions on Information Theory, submitted.
+3. P. Kanerva, ""Self-propagating search: a unified theory of
+memory,"" Tech. Rep. CSLI-84-7, Stanford Center for the Study of
+Language and Information. Stanford. CA, March 1984.
+4. P. Kanerva, ""Parallel structures in human and computer memory,""
+in Neural Networks for Computing, (J .S. Denker. ed.), Nev York:
+American Institute of Physics. 1986.
+5 . J.D. Keeler. ""Comparison betveen sparsely distributed memory and
+Hopfield-type neural netvork models,"" Tech . Rep. RIACS TR 86 . 31,
+NASA Research Institute for Advanced Computer Science, Mountain
+Viev. CA, Dec. 1986.
+
+"
+Philip A. Chou,1987,Supervised Learning of Probability Distributions by Neural Networks,3-supervised-learning-of-probability-distributions-by-neural-networks.pdf,Abstract Missing,"52
+
+Supervised Learning of Probability Distributions
+by Neural Networks
+Eric B. Baum
+Jet Propulsion Laboratory, Pasadena CA 91109
+Frank Wilczek t
+Department of Physics,Harvard University,Cambridge MA 02138
+
+Abstract:
+We propose that the back propagation algorithm for supervised learning can be generalized, put on a satisfactory conceptual
+footing, and very likely made more efficient by defining the values of the output and input neurons as probabilities and varying
+the synaptic weights in the gradient direction of the log likelihood,
+rather than the 'error'.
+
+In the past thirty years many researchers have studied the
+question of supervised learning in 'neural'-like networks. Recently
+a learning algorithm called 'back propagation H -
+
+4
+
+or the 'general-
+
+ized delta-rule' has been applied to numerous problems including
+the mapping of text to phonemes 5 , the diagnosis of illnesses 6 and
+the classification of sonar targets 7 ? In these applications, it would
+often be natural to consider imperfect, or probabilistic information. We believe that by considering supervised learning from this
+slightly larger perspective, one can not only place back propagat Permanent address: Institute for Theoretical Physics, Univer-
+
+sity of California, Santa Barbara CA 93106
+? American Institute of Physics 1988
+
+53
+
+tion on a more rigorous and general basis, relating it to other well
+studied pattern recognition algorithms, but very likely improve its
+performance as well.
+The problem of supervised learning is to model some mapping
+between input vectors and output vectors presented to us by some
+real world phenomena. To be specific, coqsider the question of
+medical diagnosis. The input vector corresponds to the symptoms
+of the patient; the i-th component is defined to be 1 if symptom i
+is present and 0 if symptom i is absent. The output vector corresponds to the illnesses, so that its j-th component is 1 if the j-th
+illness is present and 0 otherwise. Given a data base consisting
+of a number of diagnosed cases, the goal is to construct (learn) a
+mapping which accounts for these examples and can be applied to
+diagnose new patients in a reliable way. One could hope, for instance, that such a learning algorithm might yield an expert system
+to simulate the performance of doctors. Little expert advice would
+be required for its design, which is advantageous both because experts' time is valuable and because experts often have extraodinary
+difficulty in describing how they make decisions.
+A feedforward neural network implements such a mapping between input vectors and output vectors. Such a network has a set
+of input nodes, one or several layers of intermediate nodes, and a
+layer of output nodes. The nodes are connected in a forward directed manner, so that the output of a node may be connected to
+the inputs of nodes in subsequent layers, but closed loops do not
+occur. See figure 1. The output of each node is assumed to be a
+bounded semilinear function of its inputs. That is, if
+the output of the j-th node and
+
+Wij
+
+Vj
+
+denotes
+
+denotes the weight associated
+
+with the connection of the output of the j-th node to the input of
+
+54
+
+the i-th, then the i-th neuron takes value Vi = g(L,i Wi:jV:j), where
+g is a bounded, differentiable function called the activation function. g(x)
+
+= 1/(1 + e- X ),
+
+called the logistic function, is frequently
+
+used. Given a fixed set of weights {Wi:j}, we set the input node
+values to equal some input vector, compute the value of the nodes
+layer by layer until we compute the output nodes, and so generate
+an output vector.
+
+Figure 1: A 5 layer network. Note bottleneck at layer 3.
+
+55
+
+Such networks have been studied because of analogies to neurobiology, because it may be easy to fabricate them in hardware,
+and because learning algorithms such as the Perceptron learning
+algorithm 8 , Widrow- Hoff9, and backpropagation have been able
+to choose weights
+
+Wi,.
+
+that solve interesting problems.
+
+Given a set of input vectors
+values
+
+tj,
+
+sr, together with associated target
+
+back propagation attempts to adjust the weights so as
+
+to minimize the error E in achieving these target values, defined as
+
+E
+
+= E EJL = E(tj - oj)2
+JL
+
+where
+
+oj
+
+input.
+
+(1)
+
+JL,i
+
+is the output of the j-th node when sJL is presented as
+
+Back propagation starts with randomly chosen
+
+Wi,.
+
+and
+
+then varies in the gradient direction of E until a local minimum
+is obtained. Although only a locally optimal set of weights is obtained, in a number of experiments the neural net so generated
+has performed surprisingly well not only on the training set but on
+subsequent data. 4 -
+
+6
+
+This performance is probably the main reason
+
+for widespread interest in backpropagation.
+It seems to us natural, in the context of the medical diagnosis
+pro blem, the other real world problems to which backpropagation
+has been applied, and indeed in any mapping problem where one
+desires to generalize from a limited and noisy set of examples, to
+interpret the output vector in probabilistic terms. Such an interpretation is standard in the literature on pattern classification. 1o
+Indeed, the examples might even be probabilistic themselves. That
+is to say it might not be certain whether symptom i was present
+in case /L or not.
+Let
+
+sr represent the probability symptom i is present in case
+
+/L, and let
+
+tj
+
+represent the probability disease j ocurred in case
+
+56
+
+fL.
+
+Consider for the moment the case where the
+
+tJ
+
+are 1 or 0,
+A
+
+so that the cases are in fact fully diagnosed. Let
+
+Ii (s, 0)
+
+be our
+
+prediction of the probability of disease i given input vector 5, where
+{; is some set of parameters determined by our learning algorithm.
+In the neural network case, the {; are the connection weights and
+
+Ii (sl' , {Wi.i })
+
+=
+
+oJ.
+
+Now lacking a priori knowledge of good
+
+0, the best one can do
+
+is to choose the parameters {; to maximize the likelihood that the
+given set of examples should have occurred. 10 The formula for this
+likelihood, p, is immediate:
+
+or
+
+The extension of equation (2), and thus equation (3) to the
+case where the f are probabilities, taking values in [0,1]' is straight-
+
+57
+
+forward * 1 and yields
+
+log(p) =
+
+~ [tjlog(Jj (s"", 0)) + (1 -
+
+tj)log(1 - Ij (W, 0))]
+
+(4)
+
+p. ,3
+
+Expressions of this sort often arise in physics and information theory and are generally interpreted as an entropy. 11
+We may now vary the {O} in the gradient direction of the entropy. The back propagation algorithm generalizes immediately
+from minimizing 'Error' or 'Energy' to maximizing entropy or log
+likelihood, or indeed any other function of the outputs and the
+inputs 12 . Of course it remains true that the gradient can be computed by back propagation with essentially the same number of
+computations as are required to compute the output of the network.
+A backpropagation algorithm based on log-likelihood is not
+only more intuitively appealing than one based on an ad-hoc definition of error, but will make quite different and more accurate
+predictions as well. Consider e.g. training the net on an example which it already understands fairly well.
+
+/j(80)
+
+=L
+
+Now, from eqn(l) BE/B/j
+
+Say
+
+tj
+
+= 2?, so using
+
+= 0, and
+
+'Error' as a
+
+* 1 We may see this by constructing an equivalent larger set of
+examples with the f taking only values 0 or 1 with the appropriate
+frequency. Thus assume the
+
+tj
+
+are rational numbers with denomi-
+
+nator dj and numerator nj and let p
+
+= IIp.,j dj.
+
+What we mean by
+
+the set of examples {tp. : J-t = 1, ... , M} can be represented by con-
+
+ij = 0
+for p(J-t- 1) < v < pJ-t and 1 < vmod(dj) < (dj - nj), and ij = 1
+
+sidering a set of N
+
+= Mp examples {ij}
+
+where for each J-t,
+
+otherwise. N ow applying equation (3) gives equation (4), up to an
+overall normalization.
+
+58
+
+criterion the net learns very little from this example, whereas, using eqn(3), Blog(p)/B!;j
+
+= 1/(1 -
+
+f), so the net continues to learn
+
+and can in fact converge to predict probabilities near 1. Indeed
+because back propagation using the standard 'Error' measure can
+not converge to generate outputs of 1 or 0, it has been customary in the literature 4 to round the target values so that a target
+of 1 would be presented in the learning algorithm as some ad hoc
+number such as .8, whereas a target of 0 would be presented as .2.
+In the context of our general discussion it is natural to ask
+whether using a feedforward network and varying the weights is in
+fact the most effective alternative. Anderson and Abrahams 13 have
+discussed this issue from a Bayesian viewpoint. From this point of
+view, fitting output to input using normal distributions and varying
+the means and covariance matrix may seem to be more logical.
+Feedforward networks do however have several advantages for
+complex problems. Experience with neural networks has shown the
+importance of including hidden units wherein the network can form
+an internal representation of the world. If one simply uses normal
+distributions, any hidden variables included will simply integrate
+out in calculating an output. It will thus be necessary to include at
+least third order correlations to implement useful hidden variables.
+Unfortunately, the number of possible third order correlations is
+very large, so that there may be practical obstacles to such an
+approach. Indeed it is well known folklore in curve fitting and
+pattern classification that the number of parameters must be small
+compared to the size of the data set if any generalization to future
+cases is expected. 10
+In feedforward nets the question takes a different form. There
+can be bottlenecks to information flow. Specifically, if the net is
+
+59
+
+constructed with an intermediate layer which is not bypassed by
+any connections (i.e. there are no connections from layers preceding
+to layers subsequent), and if furthermore the activation functions
+are chosen so that the values of each of the intermediate nodes
+tend towards either 1 or 0*2, then this layer serves as a bottleneck
+to information flow. No matter how many input nodes, output
+nodes, or free parameters there are in the net, the output will be
+constrained to take on no more than 21 different patterns, where
+I is the number of nodes in the bottleneck layer.
+
+Thus if I is
+
+small, some sort of 'generalization' must occur even if the number
+of weights is large. One plausible reason for the success of back
+propagation in adequately solving tasks, in spite of the fact that
+it finds only local minima, is its ability to vary a large number of
+parameters. This freedom may allow back propagation to escape
+from many putative traps and to find an acceptable solution.
+A good expert system, say for medical diagnosis, should not
+only give a diagnosis based on the available information, but should
+be able to suggest, in questionable cases, which lab tests might be
+performed to clarify matters. Actually back propagation inherently has such a capability. Back propagation involves calculation
+of 81og(p)/8wij. This information allows one to compute immediately 81og(p)/8s j . Those input nodes for which this partial derivative is large correspond to important experiments.
+In conclusion, we propose that back propagation can be generalized, put on a satisfactory conceptual footing, and very likely
+made more efficient, by defining the values of the output and in*2
+
+Alternatively when necessary this can be enforced by adding
+
+an energy term to the log-likelihood to constrain the parameter
+variation so that the neuronal values are near either 1 or O.
+
+60
+
+put neurons as probabilities, and replacing the 'Error' by the loglikelihood.
+Acknowledgement: E. B. Baum was supported in part by DARPA
+
+through arrangement with NASA and by NSF grant DMB-840649,
+802. F. Wilczek was supported in part by NSF grant PHY82-17853
+References
+
+(1)Werbos,P, ""Beyond Regression: New Tools for Prediction and
+Analysis in the Behavioral Sciences"" , Harvard University Dissertation (1974)
+(2)Parker D. B., ""Learning Logic"" ,MIT Tech Report TR-47, Center
+for Computationl Research in Economics and Management Science,
+MIT, 1985
+(3)Le Cun, Y., Proceedings of Cognitiva 85,p599-604, Paris (1985)
+(4)Rumelhart, D. E., Hinton, G. E., Williams, G. E., ""Learning
+Internal Representations by Error Propagation"", in ""Parallel Distributed Processing"" , vol 1, eds. Rumelhart, D. E., McClelland, J.
+L., MIT Press, Cambridge MA,( 1986)
+(5)Sejnowski, T. J., Rosenberg, C. R., Complex Systems, v 1, pp
+145-168 (1987)
+(6)LeCun, Y., Address at 1987 Snowbird Conference on Neural
+Networks
+(7)Gorman, P., Sejnowski, T. J., ""Learned Classification of Sonar
+Targets Using a Massively Parallel Network"", in ""Workshop on
+Neural Network Devices and Applications"", JPLD-4406, (1987)
+pp224-237
+(8)Rosenblatt, F., ""Principles of Neurodynamics: Perceptrons and
+
+61
+
+the theory of brain mechanisms"", Spartan Books, Washington DC
+(1962)
+(9)Widrow, B., Hoff, M. E., 1960 IRE WESCON Cony. Record,
+Part 4, 96-104 (1960)
+(10)Duda, R. 0., Hart, P. E., ""Pattern Classification and Scene
+Analysis"", John Wiley and Sons, N.Y., (1973)
+(11)Guiasu, S., ""Information Theory with Applications"", McGraw
+Hill, NY, (1977)
+(12)Baum,E.B., ""Generalizing Back Propagation to Computation"" ,
+in ""Neural Networks for Computing"", AlP Conf. Proc. 151, Snowbird UT (1986)pp47-53
+(13)Anderson, C.H., Abrahams, E., ""The Bayes Connection"" , Proceedings of the IEEE International Conference on Neural N etwor ks,
+San Diego,(1987)
+
+"
+John C. Platt,1987,Constrained Differential Optimization,4-constrained-differential-optimization.pdf,Abstract Missing,"612
+
+Constrained Differential Optimization
+John C. Platt
+Alan H. Barr
+California Institute of Technology, Pasadena, CA 91125
+
+Abstract
+Many optimization models of neural networks need constraints to restrict the space of outputs to
+a subspace which satisfies external criteria. Optimizations using energy methods yield ""forces"" which
+act upon the state of the neural network. The penalty method, in which quadratic energy constraints
+are added to an existing optimization energy, has become popular recently, but is not guaranteed
+to satisfy the constraint conditions when there are other forces on the neural model or when there
+are multiple constraints. In this paper, we present the basic differential multiplier method (BDMM),
+which satisfies constraints exactly; we create forces which gradually apply the constraints over time,
+using ""neurons"" that estimate Lagrange multipliers.
+The basic differential multiplier method is a differential version of the method of multipliers
+from Numerical Analysis. We prove that the differential equations locally converge to a constrained
+minimum.
+Examples of applications of the differential method of multipliers include enforcing permutation
+codewords in the analog decoding problem and enforcing valid tours in the traveling salesman problem.
+
+1. Introduction
+Optimization is ubiquitous in the field of neural networks. Many learning algorithms, such as
+back-propagation,18 optimize by minimizing the difference between expected solutions and observed
+solutions. Other neural algorithms use differential equations which minimize an energy to solve
+a specified computational problem, such as associative memory, D differential solution of the traveling salesman problem,s,lo analog decoding,lS and linear programming. 1D Furthennore, Lyapunov
+methods show that various models of neural behavior find minima of particular functions. 4,D
+Solutions to a constrained optimization problem are restricted to a subset of the solutions of the
+corresponding unconstrained optimization problem. For example, a mutual inhibition circuitS requires
+one neuron to be ""on"" and the rest to be ""off"". Another example is the traveling salesman problem,ls
+where a salesman tries to minimize his travel distance, subject to the constraint that he must visit
+every city exactly once. A third example is the curve fitting problem, where elastic splines are as
+smooth as possible, while still going through data points.s Finally, when digital decisions are being
+made on analog data, the answer is constrained to be bits, either 0 or 1. 14
+A constrained optimization problem can be stated as
+minimize / (~),
+subject to g(~) = 0,
+
+(1)
+
+where ~ is the state of the neural network, a position vector in a high-dimensional space; f(~) is a
+scalar energy, which can be imagined as the height of a landscape as a function of position~; g(~) = 0
+is a scalar equation describing a subspace of the state space. During constrained optimization, the
+state should be attracted to the subspace g(~) = 0, then slide along the subspace until it reaches the
+locally smallest value of f(~) on g(~) = O.
+In section 2 of the paper, we describe classical methods of constrained optimization, such as the
+penalty method and Lagrange multipliers.
+Section 3 introduces the basic differential multiplier method (BDMM) for constrained optimization, which calcuIates a good local minimum. If the constrained optimization problem is convex, then
+the local minimum is the global minimum; in general, finding the global minimum of non-convex
+problems is fairly difficult.
+In section 4, we show a Lyapunov function for the BDMM by drawing on an analogy from
+physics.
+
+? American Institute of Physics 1988
+
+613
+
+In section 5, augmented Lagrangians, an idea from optimization theory, enhances the convergence
+properties of the BDMM.
+In section 6, we apply the differential algorithm to two neural problems, and discuss the insensitivity of BDMM to choice of parameters. Parameter sensitivity is a persistent problem in neural
+networks.
+
+2. Classical Methods of Constrained Optimization
+This section discusses two methods of constrained optimization, the penalty method and Lagrange
+multipliers. The penalty method has been previously used in differential optimization. The basic
+differential multiplier method developed in this paper applies Lagrange multipliers to differential
+optimization.
+
+2.l. The Penalty Method
+The penalty method is analogous to adding a rubber band which attracts the neural state to
+the subspace g(~) = o. The penalty method adds a quadratic energy term which penalizes violations of constraints. 8 Thus, the constrained minimization problem (1) is converted to the following
+unconstrained minimization problem:
+
+(2)
+
+Figure 1. The penalty method makes a trough in state space
+The penalty method can be extended to fulfill multiple constraints by using more than one rubber
+band. Namely, the constrained optimization problem
+minimize f (.~),
+8ubject to go (~)
+
+= OJ
+
+a
+
+= 1,2, ... , n;
+
+(3)
+
+is converted into unconstrained optimization problem
+n
+
+minimize l'pena1ty(~) = f(~)
+
++ L Co(go(~))2.
+
+(4)
+
+0:::1
+
+The penalty method has several convenient features. First, it is easy to use. Second, it is globally
+convergent to the correct answer as Co - 00. 8 Third, it allows compromises between constraints. For
+example, in the case of a spline curve fitting input data, there can be a compromise between fitting
+the data and making a smooth spline.
+
+614
+
+However, the penalty method has a number of disadvantages. First, for finite constraint strengths
+it doesn't fulfill the constraints exactly. Using multiple rubber band constraints is like building
+a machine out of rubber bands: the machine would not hold together perfectly. Second, as more
+constraints are added, the constraint strengths get harder to set, especially when the size of the
+network (the dimensionality of
+gets large.
+In addition, there is a dilemma to the setting of the constraint strengths. If the strengths are small,
+then the system finds a deep local minimum, but does not fulfill all the constraints. If the strengths
+are large, then the system quickly fulfills the constraints, but gets stuck in a poor local minimum.
+
+COl'
+
+.u
+
+2.2. Lagrange Multipliers
+Lagrange multiplier methods also convert constrained optimization problems into unconstrained
+extremization problems. Namely, a solution to the equation (1) is also a critical point of the energy
+
+(5)
+). is called the Lagrange multiplier for the constraint g(~) = 0.8
+A direct consequence of equation (5) is that the gradient of f is collinear to the gradient of 9 at
+the constrained extrema (see Figure 2). The constant of proportionality between 'i1 f and 'i1 9 is -).:
+'i1 'Lagrange
+
+= 0 = 'i1 f + ). 'i1 g.
+
+(6)
+
+We use the collinearity of 'i1 f and 'i1 9 in the design of the BDMM.
+
+Figure 2. At the constrained minimum, 'i1 f = -). 'i1 9
+A simple example shows that Lagrange multipliers provide the extra degrees of freedom necessary
+to solve constrained optimization problems. Consider the problem of finding a point (x, y) on the
+line x + y = 1 that is closest to the origin. Using Lagrange multipliers,
+'Lagrange
+
+= x 2 + y2 + ).(x + y -
+
+1)
+
+(7)
+
+Now, take the derivative with respect to all variables, x, y, and A.
+aeLagrange
+
+= 2x + A = 0
+
+a'Lagrange
+
+= 2y + A = 0
+
+ax
+ay
+
+a'Lagrange =
+
+a).
+
+x
+
++y -
+
+1= 0
+
+(8)
+
+615
+
+With the extra variable A, there are now three equations in three unknowns. In addition, the last
+equation is precisely the constraint equation.
+
+3. The Basic Differential Multiplier Method for Constrained Optimization
+This section presents a new ""neural"" algorithm for constrained optimization, consisting of differential equations which estimate Lagrange multipliers. The neural algorithm is a variation of the
+method of multipliers, first presented by Hestenes 9 and Powell 16 ?
+
+3.1. Gradient Descent does not work with Lagrange Multipliers
+The simplest differential optimization algorithm is gradient descent, where the state variables of
+the network slide downhill, opposite the gradient. Applying gradient descent to the energy in equation
+(5) yields
+
+x. - _ a!Lagrange
+,ax?,
+\.
+a!Lagrange
+= aA
+J\
+
+= _
+
+al _ A ag
+ax?""
+ax' '
+
+= -g
+
+*.
+
+(9)
+
+( )
+
+Note that there is a auxiliary differential equation for A, which is an additional ""neuron"" necessary
+to apply the constraint g(~) = O. Also, recall that when the system is at a constrained extremum,
+VI = -AVg, hence, x. = O.
+Energies involving Lagrange multipliers, however, have critical points which tend to be saddle
+points. Consider the energy in equation (5). If ~ is frozen, the energy can be decreased by sending
+A to +00 or -00.
+Gradient descent does not work with Lagrange multipliers, because a critical point of the energy
+in equation (5) need not be an attractor for (9). A stationary point must be a local minimum in order
+for gradient descent to converge.
+
+3.2. The New Algorithm: the Basic Differential Multiplier Method
+We present an alternative to differential gradient descent that estimates the Lagrange multipliers,
+so that the constrained minima are attractors of the differential equations, instead of ""repulsors."" The
+differential equations that solve (1) is
+
+.
+al
+,
+ax,
+i = +g(*).
+
+ag
+ax.'
+
+X' = - - - A -
+
+(10)
+
+Equation (10) is similar to equation (9). As in equation (9), constrained extrema of the energy
+(5) are stationary points of equation (10). Notice, however, the sign inversion in the equation for i,
+as compared to equation (9). The equation (10) is performing gradient ascent on A. The sign flip
+makes the BDMM stable, as shown in section 4.
+Equation (10) corresponds to a neural network with anti-symmetric connections between the A
+neuron and all of the ~ neurons.
+
+3.3. Extensions to the Algorithm
+One extension to equation (10) is an algorithm for constrained minimization with multiple constraints. Adding an extra neuron for every equality constraint and summing all of the constraint forces
+creates the energy
+(11)
+!multiple = !(~) +
+Ao<ga(~),
+
+I:
+0<
+
+which yields differential equations
+
+x' - _ al _ """" A agcr.
+,- ax'
+
+~
+
+'0<
+
+0<
+
+ax' )
+'
+
+(12)
+
+616
+
+Another extension is constrained minimization with inequality constraints. As in traditional
+optimization theory.8 one uses extra slack variables to convert inequality constraints into equality
+constraints. Namely. a constraint of the form h(~) ~ 0 can be expressed as
+
+(13)
+Since Z2 must always be positive, then h(~) is constrained to be positive. The slack variable z is
+treated like a component of ~ in equation (10). An inequality constraint requires two extra neurons,
+one for the slack variable % and one for the Lagrange multiplier ~.
+Alternatively, the inequality constraint can be represented as an equality constraint For example,
+if h(~) ~ 0, then the optimization can be constrained with g(~) = h(.~), when h(~) ~ 0; and
+g(.~) = 0 otherwise.
+
+4. Why the algorithm works
+The system of differential equations (10) (the BDMM) gradually fulfills the constraints. Notice
+that the function g(~) can be replaced by kg(~), without changing the location of the constrained
+minimum. As k is increased, the state begins to undergo damped oscillation about the constraint
+subspace g(~) = o. As k is increased further, the frequency of the oscillations increase, and the time
+to convergence increases.
+constraint subspace
+
+./
+
+/'
+
+initial?state
+
+.,.-
+
+path of algorithm
+
+""\
+
+\
+
+Figure 3. The state is attracted to the constraint subspace
+
+The damped oscillations of equation (10) can be explained by combining both of the differential
+equations into one second-order differential equation.
+
+(14)
+Equation (14) is the equation for a damped mass system, with an inertia term Xi. a damping matrix
+
+(15)
+and an internal force, gOg/O%i, which is the derivative of the internal energy
+
+(16)
+
+617
+
+If the system is damped and the state remains bounded, the state falls into a constrained minima.
+As in physics, we can construct a total energy of the system, which is the sum of the kinetic and
+potential energies.
+E= T
+
++U =
+
+L, i(xd
+
+2
+
++ i(g(~))2.
+
+(17)
+
+If the total energy is decreasing with time and the state remains bounded, then the system will
+dissipate any extra energy, and will settle down into the state where
+
+(18)
+which is a constrained extremum of the original problem in equation (1).
+The time derivative of the total energy in equation (17) is
+
+= -
+
+(19)
+
+Lx,A,jxj.
+',i
